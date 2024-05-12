@@ -80,12 +80,12 @@ garage:
 persistence:
   enabled: true
   meta:
-    # storageClass: "fast-storage-class"
+    #storageClass: ""
     size: 100Mi
     # used only for daemon sets
     hostPath: /var/lib/garage/meta
   data:
-    # storageClass: "slow-storage-class"
+    #storageClass: ""
     size: 100Mi
     # used only for daemon sets
     hostPath: /var/lib/garage/data
@@ -98,7 +98,7 @@ deployment:
   replicaCount: 3
 
 image:
-  repository: dxflrs/amd64_garage
+  repository: dxflrs/garage
   # please prefer using the chart version and not this tag
   tag: ""
   pullPolicy: IfNotPresent
@@ -148,6 +148,8 @@ service:
       port: 3900
     web:
       port: 3902
+    admin:
+      port: 3903
     # NOTE: the admin API is excluded for now as it is not consistent across nodes
 
 ingress:
