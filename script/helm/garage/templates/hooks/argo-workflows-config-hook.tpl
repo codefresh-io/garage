@@ -17,8 +17,8 @@ spec:
       serviceAccountName: garage-argo-workflows-config-hook
       containers:
       - name: garage-argo-workflows-config-hook
-        image: "docker.io/ilmedcodefresh/garage-argo-workflows-adater:latest"
-        imagePullPolicy: "Always"
+        image: {{ printf "%s:%s" .Values.argoWorkflowsConfigHook.image.repository .Values.argoWorkflowsConfigHook.image.tag }}
+        imagePullPolicy: {{ .Values.argoWorkflowsConfigHook.image.pullPolicy }}
         env:
         - name: NAMESPACE
           valueFrom:
