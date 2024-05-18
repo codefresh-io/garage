@@ -188,14 +188,14 @@ ingress:
         # kubernetes.io/tls-acme: "true"
       labels: {}
       hosts:
-       - host: "*.web.garage.tld" # wildcard website access with bucket name prefix
-         paths:
-           - path: /
-             pathType: Prefix
-       - host: "mywebpage.example.com" # specific bucket access with FQDN bucket
-         paths:
-           - path: /
-             pathType: Prefix
+      - host: "*.web.garage.tld" # wildcard website access with bucket name prefix
+        paths:
+          - path: /
+            pathType: Prefix
+      - host: "mywebpage.example.com" # specific bucket access with FQDN bucket
+        paths:
+          - path: /
+            pathType: Prefix
       tls: []
       #  - secretName: my-garage-cluster-tls
       #    hosts:
