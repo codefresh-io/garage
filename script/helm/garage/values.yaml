@@ -80,12 +80,12 @@ garage:
 persistence:
   enabled: true
   meta:
-    # storageClass: "fast-storage-class"
+    storageClass: ""
     size: 100Mi
     # used only for daemon sets
     hostPath: /var/lib/garage/meta
   data:
-    # storageClass: "slow-storage-class"
+    storageClass: ""
     size: 100Mi
     # used only for daemon sets
     hostPath: /var/lib/garage/data
@@ -98,7 +98,7 @@ deployment:
   replicaCount: 3
 
 image:
-  repository: dxflrs/amd64_garage
+  repository: dxflrs/garage
   # please prefer using the chart version and not this tag
   tag: ""
   pullPolicy: IfNotPresent
@@ -148,6 +148,8 @@ service:
       port: 3900
     web:
       port: 3902
+    admin:
+      port: 3903
     # NOTE: the admin API is excluded for now as it is not consistent across nodes
 
 ingress:
@@ -186,14 +188,14 @@ ingress:
         # kubernetes.io/tls-acme: "true"
       labels: {}
       hosts:
-       - host: "*.web.garage.tld" # wildcard website access with bucket name prefix
-         paths:
-           - path: /
-             pathType: Prefix
-       - host: "mywebpage.example.com" # specific bucket access with FQDN bucket
-         paths:
-           - path: /
-             pathType: Prefix
+      - host: "*.web.garage.tld" # wildcard website access with bucket name prefix
+        paths:
+          - path: /
+            pathType: Prefix
+      - host: "mywebpage.example.com" # specific bucket access with FQDN bucket
+        paths:
+          - path: /
+            pathType: Prefix
       tls: []
       #  - secretName: my-garage-cluster-tls
       #    hosts:
@@ -232,3 +234,13 @@ monitoring:
       relabelings: []
   tracing:
     sink: ""
+
+tests:
+  awsCliImage: "amazon/aws-cli:2.13.2"
+
+# -- Config hook for argo workflows
+argoWorkflowsConfigHook:
+  image:
+    repository: quay.io/codefresh/garage-argo-workflows-config-hook
+    tag: 2024.05.18-5def96f
+    pullPolicy: IfNotPresent

@@ -1,0 +1,59 @@
+# Test bucket access with
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-workflows-bucket-access
+  annotations:
+    helm.sh/hook: "test"
+spec:
+  template:
+    metadata:
+      name: "{{ .Release.Name }}"
+      labels:
+        app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+        helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    spec:
+      restartPolicy: Never
+      serviceAccountName: garage-argo-workflows-config-hook
+      containers:
+      - name: garage-argo-workflows-config-hook
+        image: {{ .Values.tests.awsCliImage }}
+        command: [ "/bin/bash", "-c", "--" ]
+        args:
+        - |
+          # Check bucket existance
+          aws s3 --region garage --endpoint-url $GARAGE_S3_API_URL ls | grep argo-workflows
+
+          if [[ $? != 0 ]]; then
+            echo "Bucket does not exist"
+            exit 1
+          fi
+
+          echo "test file" >> test.file
+
+          # Test write
+          aws s3 --region garage --endpoint-url $GARAGE_S3_API_URL cp test.file s3://argo-workflows-default
+
+          # Test read
+          aws s3 --region garage --endpoint-url $GARAGE_S3_API_URL cp s3://argo-workflows-default/test.file /tmp/read-from-s3.file
+
+          cat /tmp/read-from-s3.file
+        imagePullPolicy: "Always"
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: garage-argo-workflows-creds
+              key: accessKey
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: garage-argo-workflows-creds
+              key: secretKey
+        - name: GARAGE_S3_API_URL
+          value: {{ printf "http://%s:%s" (include "garage.fullname" .) (toString .Values.service.s3.api.port)  }}

@@ -56,6 +56,13 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: GARAGE_ADMIN_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: garage-admin
+                key: token
+                optional: false
           ports:
             - containerPort: 3900
               name: s3-api
@@ -123,7 +130,7 @@ spec:
       name: meta
     spec:
       accessModes: [ "ReadWriteOnce" ]
-    {{- if hasKey .Values.persistence.meta "storageClass" }}
+    {{- if .Values.persistence.meta.storageClass }}
       storageClassName: {{ .Values.persistence.meta.storageClass | quote }}
     {{- end }}
       resources:
@@ -133,7 +140,7 @@ spec:
       name: data
     spec:
       accessModes: [ "ReadWriteOnce" ]
-    {{- if hasKey .Values.persistence.data "storageClass" }}
+    {{- if .Values.persistence.data.storageClass }}
       storageClassName: {{ .Values.persistence.data.storageClass | quote }}
     {{- end }}
       resources:
