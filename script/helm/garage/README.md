@@ -9,7 +9,7 @@ S3-compatible object store for small self-hosted geo-distributed deployments
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| argoWorkflowsConfigHook | object | `{"image":{"pullPolicy":"IfNotPresent","repository":"quay.io/codefresh/garage-argo-workflows-config-hook","tag":"latest"}}` | Config hook for argo workflows |
+| argoWorkflowsConfigHook | object | `{"image":{"pullPolicy":"IfNotPresent","repository":"quay.io/codefresh/garage-argo-workflows-config-hook","tag":"2024.05.18-5def96f"}}` | Config hook for argo workflows |
 | deployment.kind | string | `"StatefulSet"` |  |
 | deployment.replicaCount | int | `3` |  |
 | fullnameOverride | string | `""` |  |
