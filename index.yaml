@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  garage:
+  - apiVersion: v2
+    appVersion: v0.9.4
+    created: "2024-05-18T12:11:18.503633515Z"
+    description: S3-compatible object store for small self-hosted geo-distributed
+      deployments
+    digest: 4dcc4fa4fd0f832991689761b064c47ed484f2d6916ef21c2b8a330d6a3efdb8
+    maintainers:
+    - name: garagehq.deuxfleurs.fr
+    - name: codefresh.io
+    name: garage
+    type: application
+    urls:
+    - https://github.com/codefresh-io/garage/releases/download/garage-0.5.0-cf.1/garage-0.5.0-cf.1.tgz
+    version: 0.5.0-cf.1
+generated: "2024-05-18T12:11:18.503643955Z"
