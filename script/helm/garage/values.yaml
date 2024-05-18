@@ -80,12 +80,12 @@ garage:
 persistence:
   enabled: true
   meta:
-    #storageClass: ""
+    storageClass: ""
     size: 100Mi
     # used only for daemon sets
     hostPath: /var/lib/garage/meta
   data:
-    #storageClass: ""
+    storageClass: ""
     size: 100Mi
     # used only for daemon sets
     hostPath: /var/lib/garage/data
@@ -234,3 +234,13 @@ monitoring:
       relabelings: []
   tracing:
     sink: ""
+
+tests:
+  awsCliImage: "amazon/aws-cli:2.13.2"
+
+# -- Config hook for argo workflows
+argoWorkflowsConfigHook:
+  image:
+    repository: quay.io/codefresh/garage-argo-workflows-config-hook
+    tag: 2024.05.18-5def96f
+    pullPolicy: IfNotPresent

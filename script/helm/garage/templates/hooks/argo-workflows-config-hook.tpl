@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: garage-argo-workflows-adapter
+  name: garage-argo-workflows-config-hook
   annotations:
-    "helm.sh/hook": post-install,post-upgrade
+    helm.sh/hook: post-install,post-upgrade
 spec:
   template:
     metadata:
@@ -14,9 +14,9 @@ spec:
         helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     spec:
       restartPolicy: Never
-      serviceAccountName: garage-argo-workflows-adapter
+      serviceAccountName: garage-argo-workflows-config-hook
       containers:
-      - name: garage-argo-workflows-adapter
+      - name: garage-argo-workflows-config-hook
         image: "docker.io/ilmedcodefresh/garage-argo-workflows-adater:latest"
         imagePullPolicy: "Always"
         env:
@@ -27,7 +27,7 @@ spec:
         - name: GARAGE_ADMIN_TOKEN
           valueFrom:
             secretKeyRef:
-              name: garage-codefresh-admin
+              name: garage-admin
               key: token
         - name: GARAGE_DEPLOYMENT_KIND
           value: {{ .Values.deployment.kind }}
