@@ -4,6 +4,13 @@
 
 S3-compatible object store for small self-hosted geo-distributed deployments
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| garagehq.deuxfleurs.fr |  |  |
+| codefresh.io |  |  |
+
 ## Values
 
 | Key | Type | Default | Description |
