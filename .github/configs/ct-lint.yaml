@@ -3,7 +3,7 @@
 # Only Used for the CT Lint Stage
 remote: origin
 charts:
-- scripts/helm/garage
+- script/helm/garage
 validate-chart-schema: false
 validate-maintainers: true
 validate-yaml: true

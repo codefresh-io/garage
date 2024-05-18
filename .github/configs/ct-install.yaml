@@ -3,7 +3,7 @@
 # Only Used for the CT Install Stage
 remote: origin
 charts:
-- scripts/helm/garage
+- script/helm/garage
 helm-extra-args: "--timeout 600s"
 validate-chart-schema: false
 validate-maintainers: true
