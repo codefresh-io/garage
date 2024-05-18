@@ -2,7 +2,7 @@ apiVersion: v2
 name: garage
 description: S3-compatible object store for small self-hosted geo-distributed deployments
 maintainers:
-  - name: https://garagehq.deuxfleurs.fr
+  - name: garagehq.deuxfleurs.fr
   - name: codefresh.io
 # A chart can be either an 'application' or a 'library' chart.
 #
