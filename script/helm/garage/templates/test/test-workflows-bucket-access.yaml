@@ -1,4 +1,5 @@
 # Test bucket access with
+{{- if .Values.tests.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -57,3 +58,4 @@ spec:
               key: secretKey
         - name: GARAGE_S3_API_URL
           value: {{ printf "http://%s:%s" (include "garage.fullname" .) (toString .Values.service.s3.api.port)  }}
+{{- end }}
