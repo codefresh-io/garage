@@ -236,6 +236,7 @@ monitoring:
     sink: ""
 
 tests:
+  enabled: true
   awsCliImage: "amazon/aws-cli:2.13.2"
 
 # -- Config hook for argo workflows
