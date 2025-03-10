@@ -237,7 +237,7 @@ monitoring:
 
 tests:
   enabled: true
-  awsCliImage: "amazon/aws-cli:2.13.2"
+  awsCliImage: "amazon/aws-cli:2.24.11"
 
 # -- Config hook for argo workflows
 argoWorkflowsConfigHook:
